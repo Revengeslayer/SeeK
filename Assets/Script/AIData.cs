@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]//讓script內的宣告可以被看到
 public class AIData
 {
-    public float m_fRadius;
+    public GameObject chaser;
     [HideInInspector]
     public Vector3 vTarget;
     // Start is called before the first frame update

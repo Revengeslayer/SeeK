@@ -409,8 +409,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Target: {fileID: 1075149891}
-  m_Data:
-    m_fRadius: 0
+  Data:
+    chaser: {fileID: 646866902}
     vTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &1075149891
 GameObject:
