@@ -6,10 +6,16 @@ using UnityEngine;
 public class AIData
 {
     public GameObject chaser;
+    public float m_Speed;
     [HideInInspector]
     public Vector3 vTarget;
     [HideInInspector]
-    public Vector3 Seek_force;
+    public float seek_Force;
+    [HideInInspector]
+    public float turnForce;
+    [HideInInspector]
+    public Vector3 vec_Current;
+
     // Start is called before the first frame update
     void Start()
     {
