@@ -8,6 +8,8 @@ public class AIData
     public GameObject chaser;
     [HideInInspector]
     public Vector3 vTarget;
+    [HideInInspector]
+    public Vector3 Seek_force;
     // Start is called before the first frame update
     void Start()
     {

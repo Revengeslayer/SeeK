@@ -29,5 +29,8 @@ public class SeekTest : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(this.transform.position, Data.vTarget);
 
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(Data.vTarget, this.transform.forward * 10.0f);
+
     }
 }

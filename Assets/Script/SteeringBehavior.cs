@@ -26,14 +26,14 @@ public class SteeringBehavior : MonoBehaviour
 
         Vector3 vec_forward = data.chaser.transform.forward;
         Vector3 vec_right = data.chaser.transform.right;
-
-        vec_target.Normalize();
-        float vec_seek = Vector3.Dot(vec_forward, vec_target);
-        float vec_dir = Vector3.Dot(vec_right, vec_target);
-
-
-        Debug.Log("兩點距離"+ twopoint_dis);
-        Debug.Log("力的方向"+ vec_seek);
-        Debug.Log("轉的方向"+ vec_dir);
+     
+        Vector3 force_seek = vec_target - vec_forward;
+        Debug.Log("force_seek " + force_seek);
+        float force_seek_target = Vector3.Dot(force_seek, vec_forward);
+        //force_seek.Normalize();
+        float force_seek_dic = Vector3.Dot(force_seek, vec_right);
+        Debug.Log("force_seek_target " + force_seek_target);
+        Debug.Log("force_seek_dic " + force_seek_dic);
+        
     }
 }
