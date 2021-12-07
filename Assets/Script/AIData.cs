@@ -6,7 +6,6 @@ using UnityEngine;
 public class AIData
 {
     public GameObject chaser;
-    public float m_Speed;
     [HideInInspector]
     public Vector3 vTarget;
     [HideInInspector]
