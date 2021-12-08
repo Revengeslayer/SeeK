@@ -40,47 +40,57 @@ public class SteeringBehavior : MonoBehaviour
         data.vec_Current = vec_forward;
         Vector3 vec_right = data.chaser.transform.right;      
         Vector3 vec_seek = vec_target - vec_forward;
-        data.brforce_seek= Vector3.Dot(vec_seek, vec_forward)/100;
-        vec_seek.Normalize();  
-        float force_seek_dic = Vector3.Dot(vec_seek, data.chaser.transform.right);
-        if (force_seek_dic > 0.0f)
+        vec_seek.Normalize();        
+        float force_seek = Vector3.Dot(vec_seek, vec_forward);
+        if (force_seek > 0.96f)
         {
-            force_seek_dic = 1.0f;
-        }
-        else
-        {
-            force_seek_dic = -1.0f;
-        }
-        float force_seek_target = Vector3.Dot(vec_seek, vec_forward);
-        if (force_seek_target>0.98f)
-        {
-            force_seek_target = 1.0f;
+            force_seek = 1.0f;
             data.vec_Current = vec_target;
             data.turnFreq = 0.0f;
         }
         else
         {
-            if(force_seek_target<-1.0f)
+            if (force_seek < -1.0f)
             {
-                force_seek_target = -1.0f;
+                force_seek = -1.0f;
             }
-            data.turnFreq = force_seek_dic/100;
-        }
-        if(twopoint_dis <2.0f)
-        {
-            if(data.objectSpeed>0.2f)
+
+            float force_seek_dic = Vector3.Dot(vec_seek, data.chaser.transform.right);
+            if (force_seek < 0.0f)
             {
-                data.accSpeed = -(1.0f - twopoint_dis / 2.0f) * 5.0f;
+                if (force_seek_dic < 0.0f)
+                {
+                    force_seek_dic = -1.0f;
+                }
+                else
+                {
+                    force_seek_dic = 1.0f;
+                }
+                if (twopoint_dis < 3.0f)
+                {
+                    force_seek_dic *= (force_seek_dic / 3.0f + 1.0f);
+                }
+                data.turnFreq = force_seek_dic;
+            }
+            data.turnFreq = force_seek_dic/2;
+        }   
+
+        if(twopoint_dis<3.0f)
+        {
+            if(data.objectSpeed>0.1f)
+            {
+                data.accSpeed = -(1.0f - twopoint_dis / 3.0f) * 5.0f;
             }
             else
             {
-                data.accSpeed = twopoint_dis;
+                data.accSpeed = force_seek ;
             }
         }
         else
         {
-            data.accSpeed = 0.1f;
+            data.accSpeed = force_seek ;
         }
+        
 
         data.isMove = true;
         return true;
@@ -101,13 +111,13 @@ public class SteeringBehavior : MonoBehaviour
             Vector3 vec_ori_forward = data.chaser.transform.forward;
             Vector3 vec_forward = data.vec_Current;
 
-            if (data.turnFreq > 10.0f)
+            if (data.turnFreq > 0.2f)
             {
-                data.turnFreq = 10.0f;
+                data.turnFreq = 0.2f;
             }
-            else if (data.turnFreq < -10.0f)
+            else if (data.turnFreq < 0.2f)
             {
-                data.turnFreq = -10.0f;
+                data.turnFreq = 0.2f;
             }
 
             vec_forward = vec_forward + vec_right * data.turnFreq;
@@ -115,16 +125,15 @@ public class SteeringBehavior : MonoBehaviour
             t.forward = vec_forward;
 
 
-            data.objectSpeed = data.objectSpeed + data.accSpeed * Time.deltaTime;
+            data.objectSpeed = data.objectSpeed + data.accSpeed * Time.deltaTime*10;
             if (data.objectSpeed < 0.01f)
             {
-                data.objectSpeed = 0.0f;
+                data.objectSpeed = 0.01f;
             }
-            else if (data.objectSpeed > 9.0f)
+            else if(data.objectSpeed>5.0f)
             {
-                data.objectSpeed = data.accSpeed;
+                data.objectSpeed = 5.0f;
             }
-
             cur_pos = cur_pos + t.forward * data.objectSpeed;
             t.position = cur_pos;
         }
