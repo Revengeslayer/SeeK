@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 646866905}
   - component: {fileID: 646866904}
   - component: {fileID: 646866903}
+  - component: {fileID: 646866907}
   m_Layer: 0
   m_Name: Seeker
   m_TagString: Untagged
@@ -388,13 +389,36 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 646866902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.8611769, z: -0, w: 0.50830543}
   m_LocalPosition: {x: -11.4, y: 1.46, z: -20.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 118.898, z: 0}
+--- !u!114 &646866907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646866902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4012bcd9baff734479e1101bb45b7995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 1075149891}
+  Data:
+    chaser: {fileID: 646866902}
+    objectSpeed: 0
+    max_ObjectSpeed: 0.5
+    max_TurnFreq: 0.2
+    target_Pos: {x: 0, y: 0, z: 0}
+    accSpeed: 0
+    turnFreq: 0
+    vec_Current: {x: 0, y: 0, z: 0}
+    isMove: 0
 --- !u!1 &1075149891
 GameObject:
   m_ObjectHideFlags: 0

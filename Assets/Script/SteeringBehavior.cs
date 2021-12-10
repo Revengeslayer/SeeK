@@ -24,7 +24,7 @@ public class SteeringBehavior : MonoBehaviour
 
         Vector3 vec_Target = target_Pos - current_Pos;
         var twopoint_Dis=vec_Target.magnitude;
-        if (twopoint_Dis < data.objectSpeed + 0.001f)
+        if (twopoint_Dis < data.objectSpeed + 0.5f)
         {
             Vector3 vFinal = data.target_Pos;
             data.chaser.transform.position = vFinal;

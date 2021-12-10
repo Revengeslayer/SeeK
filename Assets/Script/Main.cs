@@ -24,6 +24,8 @@ public class Main : MonoBehaviour
         Debug.Log(Data.accSpeed);
         if (Data != null)
         {
+            Gizmos.color = Color.gray;
+            Gizmos.DrawLine(this.transform.position, Data.target_Pos);
             if (Data.accSpeed > 0.0f)
             {
                 Gizmos.color = Color.blue;
@@ -32,13 +34,15 @@ public class Main : MonoBehaviour
             {
                 Gizmos.color = Color.red;
             }
-            Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * Data.accSpeed * 20000);
+            Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * Data.accSpeed * 5.0f);
 
             Gizmos.color = Color.green;
-            Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * 10.0f);
+            Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * 3.0f);
 
             Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.right * 10.0f);
+            Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.right * 3.0f);
+
+            
         }
     }
 }
