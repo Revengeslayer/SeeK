@@ -16,65 +16,117 @@ public class SteeringBehavior : MonoBehaviour
     {
         
     }
-    public static void Seek(AIData data)
+    public static bool Seek(AIData data)
     {
 
-        Vector3 current_pos = data.chaser.transform.position;
-        Vector3 target_pos = data.vTarget;
+        Vector3 current_Pos = data.chaser.transform.position;
+        Vector3 target_Pos = data.target_Pos;
 
-        Vector3 vec_target = target_pos - current_pos;
-        var twopoint_dis=vec_target.magnitude;
-
-        Vector3 vec_forward = data.chaser.transform.forward;
-        data.vec_Current = vec_forward;
-        Vector3 vec_right = data.chaser.transform.right;
-     
-        Vector3 vec_seek = vec_target - vec_forward;
-
-        data.seek_Force= Vector3.Dot(vec_seek, vec_forward);
-        vec_seek.Normalize();
-        float force_seek_dic = Vector3.Dot(vec_seek, vec_right);
-        if (force_seek_dic > 0.0f)
+        Vector3 vec_Target = target_Pos - current_Pos;
+        var twopoint_Dis=vec_Target.magnitude;
+        if (twopoint_Dis < data.objectSpeed + 0.001f)
         {
-            force_seek_dic = 1.0f;
+            Vector3 vFinal = data.target_Pos;
+            data.chaser.transform.position = vFinal;
+            data.accSpeed = 0.0f;
+            data.turnFreq = 0.0f;
+            data.objectSpeed = 0.0f;
+            data.isMove = false;
+            return false;
+        }
+
+        Vector3 vec_Forward = data.chaser.transform.forward;
+        data.vec_Current = vec_Forward;
+        Vector3 vec_Right = data.chaser.transform.right;      
+        Vector3 vec_Seek = vec_Target - vec_Forward;
+        vec_Seek.Normalize();  
+        
+        float force_Seek_Target = Vector3.Dot(vec_Seek, vec_Forward);
+        if (force_Seek_Target>0.98f)
+        {
+            force_Seek_Target = 1.0f;
+            data.vec_Current = vec_Target;
+            data.turnFreq = 0.0f;
         }
         else
         {
-            force_seek_dic = -1.0f;
-        }
-        float force_seek_target = Vector3.Dot(vec_seek, vec_forward);
-        if (force_seek_target>0.98f)
-        {
-            force_seek_target = 1.0f;
-            data.vec_Current = vec_target;
-        }
-        else
-        {
-            if(force_seek_target<-1.0f)
+
+            if(force_Seek_Target<-1.0f)
             {
-                force_seek_target = -1.0f;
+                force_Seek_Target = -1.0f;
             }
-            if(twopoint_dis<3.0f)
+            float force_Seek_Dic = Vector3.Dot(vec_Seek, data.chaser.transform.right);
+            if (force_Seek_Dic > 0.0f)
             {
-                //if (data.m_Speed > 0.1f)
-                //{
-                //    data.m_fMoveForce = -(1.0f - fDist / 3.0f) * 5.0f;
-                //}
-                //else
-                //{
-                //    data.m_fMoveForce = fDotF * 100.0f;
-                //}
+                force_Seek_Dic = 1.0f;
             }
             else
             {
-                //data.m_fMoveForce = 100.0f;
+                force_Seek_Dic = -1.0f;
+            }
+            data.turnFreq = force_Seek_Dic;
+        }
+        if(twopoint_Dis <2.0f)
+        {
+            if(data.objectSpeed>0.2f)
+            {
+                data.accSpeed = -(1.0f - twopoint_Dis / 2.0f) * 5.0f;
+            }
+            else
+            {
+                data.accSpeed = force_Seek_Target;
             }
         }
-        //data.m_bMove = true;
+        else
+        {
+            data.accSpeed = force_Seek_Target;
+        }
 
-
-        //Debug.Log("force_seek_target " + force_seek_target);
-        //Debug.Log("force_seek_dic " + force_seek_dic);
+        data.isMove = true;
+        return true;
 
     }
+
+    public static void Move(AIData data)
+    {
+        if (!data.isMove)
+        {
+            return;
+        }
+        else
+        {
+            Transform myObject = data.chaser.transform;
+            Vector3 cur_Pos = data.chaser.transform.position;
+            Vector3 vec_Right = data.chaser.transform.right;
+            Vector3 vec_Forward = data.vec_Current;
+
+            if (data.turnFreq > data.max_TurnFreq)
+            {
+                data.turnFreq = data.max_TurnFreq;
+            }
+            else if (data.turnFreq < -data.max_TurnFreq)
+            {
+                data.turnFreq = -data.max_TurnFreq;
+            }
+
+            vec_Forward = vec_Forward + vec_Right * data.turnFreq;
+            vec_Forward.Normalize();
+            myObject.forward = vec_Forward;
+
+
+            data.objectSpeed = data.objectSpeed + data.accSpeed * Time.deltaTime;
+            if (data.objectSpeed < 0.01f)
+            {
+                data.objectSpeed = 0.0f;
+            }
+            else if (data.objectSpeed > data.max_ObjectSpeed)
+            {
+                data.objectSpeed = data.max_ObjectSpeed;
+            }
+
+            cur_Pos = cur_Pos + myObject.forward * data.objectSpeed;
+            myObject.position = cur_Pos;
+        }
+    }
+
 }

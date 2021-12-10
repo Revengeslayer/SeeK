@@ -292,8 +292,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489923030}
-  m_LocalRotation: {x: -0.08717229, y: 0.8995905, z: -0.21045253, w: -0.37262273}
-  m_LocalPosition: {x: 12.674485, y: 8.872139, z: 12.674486}
+  m_LocalRotation: {x: -0.47148505, y: 0.52724427, z: -0.47403896, w: -0.5244068}
+  m_LocalPosition: {x: 6.3803453, y: 44.454956, z: 8.0751915}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -311,7 +311,6 @@ GameObject:
   - component: {fileID: 646866905}
   - component: {fileID: 646866904}
   - component: {fileID: 646866903}
-  - component: {fileID: 646866907}
   m_Layer: 0
   m_Name: Seeker
   m_TagString: Untagged
@@ -390,31 +389,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 646866902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.46, z: 0}
+  m_LocalPosition: {x: -11.4, y: 1.46, z: -20.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &646866907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 646866902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4012bcd9baff734479e1101bb45b7995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 1075149891}
-  Data:
-    chaser: {fileID: 646866902}
-    vTarget: {x: 0, y: 0, z: 0}
-    seek_Force: 0
-    turnForce: 0
-    vec_Current: {x: 0, y: 0, z: 0}
 --- !u!1 &1075149891
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +485,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075149891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.37, y: 1.46, z: 9.74}
+  m_LocalPosition: {x: -1.2, y: 1.46, z: 23.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
